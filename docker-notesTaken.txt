@@ -1,0 +1,151 @@
+docker file -> docker image -> docker container 
+
+version control and many other things are possible with docker and also
+with docker we can run many containers and each doesnt interface with one 
+another
+
+yum == apt-get in ubuntu 
+
+1) sudo apt-get -y update #pachakge update
+2) sudo apt-get install -y docker #installing docker
+3) sudo docker info #gives info related to containers that are running 
+4) sudo service docker start # to start the docker service
+5) sudo usermod -a -G docker username # so that sudo is not needed and 
+after this command need to restart
+6) sudo docker images #gives info of the images running
+7) sudo docker ps # to display the running containers
+8) sudo docker ps -a # to display all the containers 
+9) sudo docker run hello-world #last is the image name to run, it runs the 
+the image if not present it downloads from docker hub and runs
+10 ) sudo service docker stop #to stop the docker
+11) sudo apt-get remove docker # removes the docker
+12) docker --help # command helps
+13) docker login # to login to docker hub
+14) docker rmi # to remove the images, its removed using their ids
+15) sudo docker run -it ubuntu # to get into the interactive system of ubuntu
+and its containers 
+16) sudo docker start/stop container_id # to start or stop the containers
+17) sudo docker stats # status of memory and usage etc
+18) sudo docker system df # it shows the disk usage of the docker
+19) sudo docker system prune # deletes the images and the containers which are
+not used
+============images===================
+sudo docker images -f "dangling=false" #f-filter, dangling- no conainers 
+running 
+=========running the docker container===========
+sudo docker run ubuntu:18.04 #with this we can download the required version
+sudo docker run -it ubuntu bash # to run into the interactive mode of the 
+container
+sudo docker run --name myContainer -it ubuntu bash #--name gives name 
+sudo docker inspect ubuntu # to see the details of the image, we can see all
+the file layers
+=====to stop the container=====
+sudo docker stop container_id #this stops the container running
+=====to start the container====
+sudo docker start container_id
+========pausing & unpausing=======
+sudo docker pause container_id/name #this pauses the container and it doesnt 
+gets the input
+sudo docker unpause container_id/name #this unpauses the container
+
+sudo docker top Container_name #this gives the top 5 process of the 
+container
+
+sudo docker stats Container_name #this gives the memory and processors,etc
+
+sudo docker attach Container_name #this gives the interfacce with the 
+inside the container | to run the interface insead of using the run in images
+
+sudo docker kill Container_Name #it kills the container initially getting
+out of the container the container must be running 
+
+sudo docker rm container_name/Id #it removes the container
+
+sudo docker history image_name #it gives the history of the image 
+created,..etc
+
+=======Docker File========
+ 
+
+--------------
+docker images:
+--------------
+-> docker images are templates used to create docker containers
+-> containers is a running instance of images
+-> images are stored in docker hub
+-> images are file system stacked one on another
+
+-------------
+docker file:
+-------------
+-> a simple text file to build image
+$ step1: create a name file docker file #when built it searches for this name
+else we can also say when running the name of the file
+$ step2 : add instructions in Dockerfile
+$ step3 : Build dockerfile to create image
+$ step4 : Run image to create container
+
+touch file_name #it create a text file
+
+docker file is in ubuntu desktop in Dockerfiles
+
+====command to build the image=====
+# -t is for giving the name and tag myimage:1.0 and . is the present dir
+$ docker build -t myimage1:1.0 .
+
+-------------
+Need to read:
+-------------
+-> docker file builder https://docs.docker.com/engine/reference/builder/
+
+
+===============
+Docker Compose
+---------------
+why ?
+-> tool for defining & running multi-container docker applications
+-> yaml files are used to create microservices (docker-compose.yml)
+-> can start service using command 
+$ docker compose up
+-> can stop serice using command
+$ docker compose down
+-> we can scale up selected services when required
+
+step 1:
+===============
+installing & checking
+==============
+installing - sudo apt install docker-compose
+checking   - sudo docker-compose -v
+
+step 2:
++++++++++++++++++
+create a docker compose file in any location
+++++++++++++++++
+
+step 3:
+++++++++++++++++
+Check the validity of file by $docker-compose config
+# we have to give the version propery so that it runs properly
+++++++++++++++++
+
+step 4:
++++++++++++++++
+run docker-compose file
+command $ docker-compose up -d 
+#-d to run indetached mode so terminal is 
+available, once the compose up command is done it starts runninng we can 
+check that using "docker ps"
++++++++++++++++
+step 5:
++++++++++++++++
+$ docker-compose down 
+#to stop the containers
++++++++++++++++
+
+step 6:
++++++++++++++
+$ docker-compose scale given_name = 4/any
+the given will be scaled according to that
++++++++++++++
+
